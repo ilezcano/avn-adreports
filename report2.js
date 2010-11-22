@@ -89,7 +89,9 @@ while (adgroups.length > 0) //Iterate through each group
 
 		while (members.length > 0)
 			{
-			var userlookup = GetObject("GC://" + members.pop());
+			var memberStringObj = new String(members.pop());	// Temporary Workaround for some idiots
+			memberStringObj.replace("/","\//");			// who put forward slashes in 
+			var userlookup = GetObject("GC://" + memberStringObj);	// OU names.
 			
 			if (typeof userlookup == "object")
 				{
