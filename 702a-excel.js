@@ -30,6 +30,7 @@ var adocomm = new ActiveXObject("ADODB.Command");
 //
 var xlWBATWorksheet = -4167;
 var xlDown = -4121;
+var ADS_CHASE_REFERRALS_EXTERNAL = 0x40;
 // 
 // Variables
 //
@@ -56,13 +57,6 @@ with (hrfile)
 	{
 	Worksheets(1).Range("A2").Select;
 	var justarange = Worksheets(1).Range(exxon.Selection, exxon.Selection.End(xlDown));
-	/*
-	for (i = 1; i <= justarange.Count; i++)
-		{
-		var cellvalue = justarange.Cells(i).Value + ";";
-		idstring = idstring.concat(cellvalue);
-		}
-	*/
 	var jsarray = justarange.Value.toArray();
 	idstring = idstring.concat(jsarray.join(";") + ";");
 	}
@@ -129,6 +123,7 @@ for (ouindex in bases)
 	{
 	adocomm.CommandText=bases[ouindex] + filter +";" + attarray + ";subtree";
 	adocomm.Properties("Page Size") = 1000;
+	adocomm.Properties("Chase Referrals") = ADS_CHASE_REFERRALS_EXTERNAL ;
 	var records = adocomm.Execute;
 	while (records.EOF == false)
 		{
